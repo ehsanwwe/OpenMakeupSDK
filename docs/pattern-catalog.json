@@ -1,0 +1,586 @@
+[
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9119,
+    "icon_id": 6262,
+    "target_file": "assets/patterns/eyeline/9119.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9120,
+    "icon_id": 6264,
+    "target_file": "assets/patterns/eyeline/9120.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9128,
+    "icon_id": 6266,
+    "target_file": "assets/patterns/eyeline/9128.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9131,
+    "icon_id": 6268,
+    "target_file": "assets/patterns/eyeline/9131.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9121,
+    "icon_id": 6276,
+    "target_file": "assets/patterns/eyeline/9121.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9122,
+    "icon_id": 6288,
+    "target_file": "assets/patterns/eyeline/9122.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9123,
+    "icon_id": 6292,
+    "target_file": "assets/patterns/eyeline/9123.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9125,
+    "icon_id": 6294,
+    "target_file": "assets/patterns/eyeline/9125.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9127,
+    "icon_id": 6298,
+    "target_file": "assets/patterns/eyeline/9127.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9124,
+    "icon_id": 6300,
+    "target_file": "assets/patterns/eyeline/9124.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 9129,
+    "icon_id": 6302,
+    "target_file": "assets/patterns/eyeline/9129.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6309,
+    "icon_id": 6310,
+    "target_file": "assets/patterns/eyeshadow/6309.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6311,
+    "icon_id": 6312,
+    "target_file": "assets/patterns/eyeshadow/6311.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6313,
+    "icon_id": 6314,
+    "target_file": "assets/patterns/eyeshadow/6313.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6315,
+    "icon_id": 6316,
+    "target_file": "assets/patterns/eyeshadow/6315.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6317,
+    "icon_id": 6318,
+    "target_file": "assets/patterns/eyeshadow/6317.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6321,
+    "icon_id": 6322,
+    "target_file": "assets/patterns/eyeshadow/6321.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6323,
+    "icon_id": 6324,
+    "target_file": "assets/patterns/eyeshadow/6323.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6325,
+    "icon_id": 6326,
+    "target_file": "assets/patterns/eyeshadow/6325.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6327,
+    "icon_id": 6328,
+    "target_file": "assets/patterns/eyeshadow/6327.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6329,
+    "icon_id": 6330,
+    "target_file": "assets/patterns/eyeshadow/6329.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6331,
+    "icon_id": 6332,
+    "target_file": "assets/patterns/eyeshadow/6331.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6333,
+    "icon_id": 6334,
+    "target_file": "assets/patterns/eyeshadow/6333.png",
+    "bundled": true
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6335,
+    "icon_id": 6336,
+    "target_file": "assets/patterns/eyeshadow/6335.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6337,
+    "icon_id": 6338,
+    "target_file": "assets/patterns/eyeshadow/6337.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6339,
+    "icon_id": 6340,
+    "target_file": "assets/patterns/eyeshadow/6339.png",
+    "bundled": true
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6341,
+    "icon_id": 6342,
+    "target_file": "assets/patterns/eyeshadow/6341.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6345,
+    "icon_id": 6346,
+    "target_file": "assets/patterns/eyeshadow/6345.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6347,
+    "icon_id": 6348,
+    "target_file": "assets/patterns/eyeshadow/6347.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6349,
+    "icon_id": 6350,
+    "target_file": "assets/patterns/eyeshadow/6349.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6351,
+    "icon_id": 6352,
+    "target_file": "assets/patterns/eyeshadow/6351.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6353,
+    "icon_id": 6354,
+    "target_file": "assets/patterns/eyeshadow/6353.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6355,
+    "icon_id": 6356,
+    "target_file": "assets/patterns/eyeshadow/6355.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6357,
+    "icon_id": 6358,
+    "target_file": "assets/patterns/eyeshadow/6357.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6359,
+    "icon_id": 6360,
+    "target_file": "assets/patterns/eyeshadow/6359.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6361,
+    "icon_id": 6362,
+    "target_file": "assets/patterns/eyeshadow/6361.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6363,
+    "icon_id": 6364,
+    "target_file": "assets/patterns/eyeshadow/6363.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6365,
+    "icon_id": 6366,
+    "target_file": "assets/patterns/eyeshadow/6365.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6367,
+    "icon_id": 6368,
+    "target_file": "assets/patterns/eyeshadow/6367.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6369,
+    "icon_id": 6370,
+    "target_file": "assets/patterns/eyeshadow/6369.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6371,
+    "icon_id": 6372,
+    "target_file": "assets/patterns/eyeshadow/6371.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6373,
+    "icon_id": 6374,
+    "target_file": "assets/patterns/eyeshadow/6373.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6375,
+    "icon_id": 6376,
+    "target_file": "assets/patterns/eyeshadow/6375.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6377,
+    "icon_id": 6378,
+    "target_file": "assets/patterns/eyeshadow/6377.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6379,
+    "icon_id": 6380,
+    "target_file": "assets/patterns/eyeshadow/6379.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6381,
+    "icon_id": 6382,
+    "target_file": "assets/patterns/eyeshadow/6381.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6383,
+    "icon_id": 6384,
+    "target_file": "assets/patterns/eyeshadow/6383.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6385,
+    "icon_id": 6386,
+    "target_file": "assets/patterns/eyeshadow/6385.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6387,
+    "icon_id": 6388,
+    "target_file": "assets/patterns/eyeshadow/6387.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6389,
+    "icon_id": 6390,
+    "target_file": "assets/patterns/eyeshadow/6389.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6391,
+    "icon_id": 6392,
+    "target_file": "assets/patterns/eyeshadow/6391.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6393,
+    "icon_id": 6394,
+    "target_file": "assets/patterns/eyeshadow/6393.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6395,
+    "icon_id": 6396,
+    "target_file": "assets/patterns/eyeshadow/6395.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6397,
+    "icon_id": 6398,
+    "target_file": "assets/patterns/eyeshadow/6397.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 6403,
+    "icon_id": 6404,
+    "target_file": "assets/patterns/eyeshadow/6403.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "mascara",
+    "category_id": 74,
+    "pattern_id": 9141,
+    "icon_id": 6406,
+    "target_file": "assets/patterns/mascara/9141.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "mascara",
+    "category_id": 74,
+    "pattern_id": 9142,
+    "icon_id": 6408,
+    "target_file": "assets/patterns/mascara/9142.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "mascara",
+    "category_id": 74,
+    "pattern_id": 9143,
+    "icon_id": 6410,
+    "target_file": "assets/patterns/mascara/9143.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "mascara",
+    "category_id": 74,
+    "pattern_id": 9144,
+    "icon_id": 6412,
+    "target_file": "assets/patterns/mascara/9144.png",
+    "bundled": true
+  },
+  {
+    "makeup_type": "blush",
+    "category_id": 67,
+    "pattern_id": 6413,
+    "icon_id": 6414,
+    "target_file": "assets/patterns/blush/6413.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "blush",
+    "category_id": 67,
+    "pattern_id": 6415,
+    "icon_id": 6416,
+    "target_file": "assets/patterns/blush/6415.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "blush",
+    "category_id": 67,
+    "pattern_id": 6417,
+    "icon_id": 6418,
+    "target_file": "assets/patterns/blush/6417.png",
+    "bundled": true
+  },
+  {
+    "makeup_type": "blush",
+    "category_id": 67,
+    "pattern_id": 6419,
+    "icon_id": 6420,
+    "target_file": "assets/patterns/blush/6419.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "foundation",
+    "category_id": 63,
+    "pattern_id": 6421,
+    "icon_id": 6422,
+    "target_file": "assets/patterns/foundation/6421.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "lipstick",
+    "category_id": 88,
+    "pattern_id": 6427,
+    "icon_id": 6428,
+    "target_file": "assets/patterns/lipstick/6427.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "lipstick",
+    "category_id": 88,
+    "pattern_id": 6429,
+    "icon_id": 6430,
+    "target_file": "assets/patterns/lipstick/6429.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "lipstick",
+    "category_id": 88,
+    "pattern_id": 6431,
+    "icon_id": 6432,
+    "target_file": "assets/patterns/lipstick/6431.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 8711,
+    "icon_id": 8712,
+    "target_file": "assets/patterns/eyeshadow/8711.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 17216,
+    "icon_id": 8715,
+    "target_file": "assets/patterns/eyeshadow/17216.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 8718,
+    "icon_id": 8719,
+    "target_file": "assets/patterns/eyeshadow/8718.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 8720,
+    "icon_id": 8721,
+    "target_file": "assets/patterns/eyeshadow/8720.png",
+    "bundled": false
+  },
+  {
+    "makeup_type": "eyeline",
+    "category_id": 76,
+    "pattern_id": 10246,
+    "icon_id": 10248,
+    "target_file": "assets/patterns/eyeline/10246.png",
+    "bundled": true
+  },
+  {
+    "makeup_type": "eyeshadow",
+    "category_id": 75,
+    "pattern_id": 17197,
+    "icon_id": 17204,
+    "target_file": "assets/patterns/eyeshadow/17197.png",
+    "bundled": false
+  }
+]

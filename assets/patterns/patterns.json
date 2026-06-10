@@ -1,0 +1,457 @@
+{
+  "version": 1,
+  "assetsBaseUrl": "./assets",
+  "note": "Paths are relative to assetsBaseUrl. Move the assets folder and only change assetsBaseUrl.",
+  "categories": {
+    "eyeline": [
+      {
+        "id": 9119,
+        "file": "patterns/eyeline/9119.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9120,
+        "file": "patterns/eyeline/9120.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9128,
+        "file": "patterns/eyeline/9128.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9131,
+        "file": "patterns/eyeline/9131.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9121,
+        "file": "patterns/eyeline/9121.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9122,
+        "file": "patterns/eyeline/9122.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9123,
+        "file": "patterns/eyeline/9123.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9125,
+        "file": "patterns/eyeline/9125.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9127,
+        "file": "patterns/eyeline/9127.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9124,
+        "file": "patterns/eyeline/9124.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9129,
+        "file": "patterns/eyeline/9129.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 10246,
+        "file": "patterns/eyeline/10246.png",
+        "colorable": true,
+        "bundled": true
+      }
+    ],
+    "eyeshadow": [
+      {
+        "id": 6309,
+        "file": "patterns/eyeshadow/6309.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6311,
+        "file": "patterns/eyeshadow/6311.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6313,
+        "file": "patterns/eyeshadow/6313.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6315,
+        "file": "patterns/eyeshadow/6315.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6317,
+        "file": "patterns/eyeshadow/6317.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6321,
+        "file": "patterns/eyeshadow/6321.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6323,
+        "file": "patterns/eyeshadow/6323.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6325,
+        "file": "patterns/eyeshadow/6325.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6327,
+        "file": "patterns/eyeshadow/6327.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6329,
+        "file": "patterns/eyeshadow/6329.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6331,
+        "file": "patterns/eyeshadow/6331.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6333,
+        "file": "patterns/eyeshadow/6333.png",
+        "colorable": true,
+        "bundled": true
+      },
+      {
+        "id": 6335,
+        "file": "patterns/eyeshadow/6335.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6337,
+        "file": "patterns/eyeshadow/6337.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6339,
+        "file": "patterns/eyeshadow/6339.png",
+        "colorable": true,
+        "bundled": true
+      },
+      {
+        "id": 6341,
+        "file": "patterns/eyeshadow/6341.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6345,
+        "file": "patterns/eyeshadow/6345.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6347,
+        "file": "patterns/eyeshadow/6347.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6349,
+        "file": "patterns/eyeshadow/6349.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6351,
+        "file": "patterns/eyeshadow/6351.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6353,
+        "file": "patterns/eyeshadow/6353.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6355,
+        "file": "patterns/eyeshadow/6355.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6357,
+        "file": "patterns/eyeshadow/6357.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6359,
+        "file": "patterns/eyeshadow/6359.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6361,
+        "file": "patterns/eyeshadow/6361.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6363,
+        "file": "patterns/eyeshadow/6363.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6365,
+        "file": "patterns/eyeshadow/6365.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6367,
+        "file": "patterns/eyeshadow/6367.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6369,
+        "file": "patterns/eyeshadow/6369.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6371,
+        "file": "patterns/eyeshadow/6371.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6373,
+        "file": "patterns/eyeshadow/6373.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6375,
+        "file": "patterns/eyeshadow/6375.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6377,
+        "file": "patterns/eyeshadow/6377.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6379,
+        "file": "patterns/eyeshadow/6379.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6381,
+        "file": "patterns/eyeshadow/6381.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6383,
+        "file": "patterns/eyeshadow/6383.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6385,
+        "file": "patterns/eyeshadow/6385.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6387,
+        "file": "patterns/eyeshadow/6387.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6389,
+        "file": "patterns/eyeshadow/6389.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6391,
+        "file": "patterns/eyeshadow/6391.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6393,
+        "file": "patterns/eyeshadow/6393.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6395,
+        "file": "patterns/eyeshadow/6395.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6397,
+        "file": "patterns/eyeshadow/6397.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6403,
+        "file": "patterns/eyeshadow/6403.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 8711,
+        "file": "patterns/eyeshadow/8711.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 17216,
+        "file": "patterns/eyeshadow/17216.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 8718,
+        "file": "patterns/eyeshadow/8718.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 8720,
+        "file": "patterns/eyeshadow/8720.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 17197,
+        "file": "patterns/eyeshadow/17197.png",
+        "colorable": true,
+        "bundled": false
+      }
+    ],
+    "mascara": [
+      {
+        "id": 9141,
+        "file": "patterns/mascara/9141.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9142,
+        "file": "patterns/mascara/9142.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9143,
+        "file": "patterns/mascara/9143.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 9144,
+        "file": "patterns/mascara/9144.png",
+        "colorable": true,
+        "bundled": true
+      }
+    ],
+    "blush": [
+      {
+        "id": 6413,
+        "file": "patterns/blush/6413.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6415,
+        "file": "patterns/blush/6415.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6417,
+        "file": "patterns/blush/6417.png",
+        "colorable": true,
+        "bundled": true
+      },
+      {
+        "id": 6419,
+        "file": "patterns/blush/6419.png",
+        "colorable": true,
+        "bundled": false
+      }
+    ],
+    "foundation": [
+      {
+        "id": 6421,
+        "file": "patterns/foundation/6421.png",
+        "colorable": true,
+        "bundled": false
+      }
+    ],
+    "lipstick": [
+      {
+        "id": 6427,
+        "file": "patterns/lipstick/6427.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6429,
+        "file": "patterns/lipstick/6429.png",
+        "colorable": true,
+        "bundled": false
+      },
+      {
+        "id": 6431,
+        "file": "patterns/lipstick/6431.png",
+        "colorable": true,
+        "bundled": false
+      }
+    ]
+  }
+}

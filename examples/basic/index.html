@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenMakeupSDK — demo</title>
+</head>
+<body>
+  <h1>OpenMakeupSDK</h1>
+  <p>Engine not wired yet — this page just verifies the assets manifest loads.</p>
+  <pre id="out">loading…</pre>
+  <script type="module">
+    import { createAssetResolver } from '../../src/index.js';
+    const assets = createAssetResolver('../../assets');
+    const res = await fetch(assets.manifest());
+    const manifest = await res.json();
+    const lines = [];
+    for (const [type, items] of Object.entries(manifest.categories)) {
+      lines.push(`${type}: ${items.length} patterns`);
+      for (const it of items) lines.push(`   ${it.bundled ? '✓' : '·'} ${assets.pattern(type, it.id)}`);
+    }
+    document.getElementById('out').textContent = lines.join('\n');
+  </script>
+</body>
+</html>

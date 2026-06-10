@@ -1,0 +1,39 @@
+{
+  "name": "open-makeup-sdk",
+  "version": "0.1.0",
+  "description": "Open-source AR virtual makeup SDK for the web — real-time face tracking (MediaPipe) + WebGL/Three.js shaders, face morphing, and no licensing lock-in.",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./assets/*": "./assets/*"
+  },
+  "files": [
+    "src",
+    "assets/models",
+    "assets/shaders",
+    "assets/patterns",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite examples/basic",
+    "build": "echo \"(build step to be added)\" && exit 0"
+  },
+  "keywords": [
+    "augmented-reality","virtual-try-on","makeup","ar-makeup","makeup-sdk",
+    "mediapipe","webgl","threejs","glsl","shaders","computer-vision",
+    "face-tracking","face-mesh","blendshapes","beauty-tech","real-time"
+  ],
+  "peerDependencies": {
+    "three": ">=0.150.0",
+    "@mediapipe/face_mesh": "*",
+    "@mediapipe/camera_utils": "*"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ehsanwwe/OpenMakeupSDK.git"
+  }
+}
