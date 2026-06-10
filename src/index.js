@@ -1,9 +1,9 @@
 /**
  * OpenMakeupSDK — public entry point.
  */
-export { defaultConfig, resolveAsset, createAssetResolver } from './config.js';
-export { MakeupEngine } from './core/MakeupEngine.js';
+export { OpenMakeup } from './OpenMakeup.js';
+export { CATEGORIES, FINISHES, resolveCategory } from './categories.js';
 
-// Phase 2 will add a higher-level public `OpenMakeup` class with apply(category,
-// { color, pattern, finish }) + sensible per-category defaults, built on top of
-// MakeupEngine.
+// Lower-level engine + config (advanced use)
+export { MakeupEngine } from './core/MakeupEngine.js';
+export { defaultConfig, resolveAsset, createAssetResolver } from './config.js';
