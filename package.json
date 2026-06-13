@@ -22,18 +22,34 @@
     "build": "echo \"(build step to be added)\" && exit 0"
   },
   "keywords": [
-    "augmented-reality","virtual-try-on","makeup","ar-makeup","makeup-sdk",
-    "mediapipe","webgl","threejs","glsl","shaders","computer-vision",
-    "face-tracking","face-mesh","blendshapes","beauty-tech","real-time"
+    "augmented-reality",
+    "virtual-try-on",
+    "makeup",
+    "ar-makeup",
+    "makeup-sdk",
+    "mediapipe",
+    "webgl",
+    "threejs",
+    "glsl",
+    "shaders",
+    "computer-vision",
+    "face-tracking",
+    "face-mesh",
+    "blendshapes",
+    "beauty-tech",
+    "real-time"
   ],
   "peerDependencies": {
-    "three": ">=0.150.0",
-    "@mediapipe/face_mesh": "*",
-    "@mediapipe/camera_utils": "*"
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
+    "three": "^0.184.0"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ehsanwwe/OpenMakeupSDK.git"
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
   }
 }

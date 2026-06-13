@@ -1,5 +1,3 @@
-import { FaceMesh } from '@mediapipe/face_mesh';
-import { Camera as MediaPipeCamera } from '@mediapipe/camera_utils';
 import {
     Group,
     LinearFilter,
@@ -16,6 +14,7 @@ import {
     Mesh,
     ClampToEdgeWrapping,
     TextureLoader,
+    Float32BufferAttribute,
 } from 'three';
 
 import { FaceMeshModelController } from './FaceMeshModelController.js';
@@ -33,7 +32,9 @@ import {
     loadLipMats,
     loadMascaraMat,
 } from './materials.js';
+import { loadFaceWarpMat } from './faceWarpMaterial.js';
 import { createAssetResolver, defaultConfig, resolveAsset } from '../config.js';
+import { resolveMorphTarget } from '../morphs.js';
 
 /** Convert a '#rrggbb' string to a THREE.Vector4 with alpha 1. */
 function hexToVector4(hex) {
@@ -47,12 +48,14 @@ function hexToVector4(hex) {
 /**
  * MakeupEngine — the real-time AR makeup renderer.
  *
- * Instantiable and DOM-decoupled: you pass in your own <video> and canvas
- * elements and a configurable asset base. The old document CustomEvents
- * (setAR / setPattern / ClearAll / ClearPartOfMakeUp) are now methods.
+ * Instantiable and DOM-decoupled: pass in your own <video> and canvas elements
+ * and a configurable asset base. The old document CustomEvents (setAR /
+ * setPattern / ClearAll / ClearPartOfMakeUp) are now methods.
  *
- * Phase 2 wraps this in a higher-level `OpenMakeup` API with per-category
- * defaults.
+ * MediaPipe FaceMesh / Camera are NOT imported here (the legacy @mediapipe
+ * packages are global-script libraries that break ESM bundlers). Instead they
+ * are taken from `window.FaceMesh` / `window.Camera` (load them via a <script>
+ * tag) or injected via the `faceMeshClass` / `cameraClass` options.
  */
 export class MakeupEngine {
     /**
@@ -61,9 +64,11 @@ export class MakeupEngine {
      * @param {HTMLCanvasElement} options.renderCanvas  WebGL output canvas (required)
      * @param {HTMLCanvasElement} [options.overlayCanvas] optional 2D overlay canvas
      * @param {string} [options.assetsBaseUrl]    base path for shaders/models/patterns
-     * @param {string} [options.mediapipeBaseUrl] base path for the MediaPipe runtime
+     * @param {string} [options.mediapipeBaseUrl] base path for the MediaPipe runtime files
      * @param {object} [options.faceMesh]         MediaPipe FaceMesh options override
      * @param {object} [options.camera]           { width, height } override
+     * @param {Function} [options.faceMeshClass]  MediaPipe FaceMesh class (defaults to window.FaceMesh)
+     * @param {Function} [options.cameraClass]    MediaPipe Camera class (defaults to window.Camera)
      */
     constructor(options = {}) {
         const {
@@ -74,6 +79,8 @@ export class MakeupEngine {
             mediapipeBaseUrl,
             faceMesh,
             camera,
+            faceMeshClass,
+            cameraClass,
         } = options;
 
         if (!video) throw new Error('MakeupEngine: `video` element is required');
@@ -90,6 +97,10 @@ export class MakeupEngine {
             faceMesh: { ...defaultConfig.faceMesh, ...(faceMesh || {}) },
             camera: { ...defaultConfig.camera, ...(camera || {}) },
         };
+
+        // MediaPipe classes (injected or resolved from globals at init)
+        this._FaceMeshClass = faceMeshClass || null;
+        this._CameraClass = cameraClass || null;
 
         // three.js state
         this.scene = null;
@@ -125,10 +136,21 @@ export class MakeupEngine {
         this._camera = null;
         this._faceMesh = null;
         this._ready = false;
+
+        // face reshape (morph) state
+        this.faceVideoMesh = null;     // camera video projected onto the morphable face mesh
+        this._morphReady = false;
+        this._morphDeltas = null;      // geometry.morphAttributes.position (deltas per target)
+        this._morphDict = null;        // glb target name -> index
+        this._morphInfluences = null;  // Float32Array, one weight per target
+        this._basePos = null;          // unmorphed fit position attribute (for the warp shader)
+        this._pendingMorph = {};       // morph() calls made before the model finished loading
     }
 
     /** Set up the scene, load the face model + materials, start tracking. */
     async init(onReady) {
+        this._resolveMediaPipeClasses();
+
         this._setupScene();
         this._sizeToVideoBox();
         window.addEventListener('resize', this._sizeToVideoBox);
@@ -149,6 +171,17 @@ export class MakeupEngine {
         this._ready = true;
         if (onReady) onReady(this);
         return this;
+    }
+
+    _resolveMediaPipeClasses() {
+        if (!this._FaceMeshClass && typeof window !== 'undefined') this._FaceMeshClass = window.FaceMesh;
+        if (!this._CameraClass && typeof window !== 'undefined') this._CameraClass = window.Camera;
+        if (!this._FaceMeshClass) {
+            throw new Error('OpenMakeupSDK: MediaPipe FaceMesh not found. Load @mediapipe/face_mesh (window.FaceMesh) via a <script> tag, or pass `faceMeshClass`.');
+        }
+        if (!this._CameraClass) {
+            throw new Error('OpenMakeupSDK: MediaPipe Camera not found. Load @mediapipe/camera_utils (window.Camera) via a <script> tag, or pass `cameraClass`.');
+        }
     }
 
     _setupScene() {
@@ -179,6 +212,7 @@ export class MakeupEngine {
         this.videoTexture.colorSpace = SRGBColorSpace;
         const videoMaterial = new MeshBasicMaterial({ map: this.videoTexture });
         this.videoPlane = new Mesh(new PlaneGeometry(1, 1), videoMaterial);
+        this.videoPlane.renderOrder = -10;
         this.scene.add(this.videoPlane);
     }
 
@@ -197,7 +231,6 @@ export class MakeupEngine {
         let targetWidth;
         let targetHeight;
 
-        // Aspect-fill the container
         if (videoAspect > containerAspect) {
             targetHeight = containerHeight;
             targetWidth = Math.round(targetHeight * videoAspect);
@@ -253,6 +286,16 @@ export class MakeupEngine {
                 mesh.visible = false;
                 this.faceObject3D.add(mesh);
                 this.scene.add(this.faceObject3D);
+
+                // morph buffers (shared geometry) + the camera-on-face warp mesh
+                this._ensureMorphBuffers();
+                loadFaceWarpMat(this.assets, this.videoTexture).then((mat) => {
+                    this.faceVideoMesh = new Mesh(mesh.geometry, mat);
+                    this.faceVideoMesh.renderOrder = -5; // above the background plane, below makeup
+                    this.faceVideoMesh.position.setZ(0.5);
+                    this.faceVideoMesh.frustumCulled = false;
+                    this.faceObject3D.add(this.faceVideoMesh);
+                });
 
                 const refractUniforms = {
                     tScene: { value: this.videoTexture },
@@ -344,7 +387,7 @@ export class MakeupEngine {
     }
 
     _setupFaceMesh() {
-        this._faceMesh = new FaceMesh({
+        this._faceMesh = new this._FaceMeshClass({
             locateFile: (file) => resolveAsset(this.mediapipeBaseUrl, file),
         });
         this._faceMesh.setOptions(this.config.faceMesh);
@@ -352,7 +395,7 @@ export class MakeupEngine {
     }
 
     _setupCamera() {
-        this._camera = new MediaPipeCamera(this.video, {
+        this._camera = new this._CameraClass(this.video, {
             onFrame: async () => {
                 await this._faceMesh.send({ image: this.video });
             },
@@ -372,6 +415,7 @@ export class MakeupEngine {
 
             if (this.faceModel && this.faceModel.scene != null) {
                 this.faceModel.updateWithLandmarks(landmarks);
+                this._applyMorph();
                 if (this.lipsMat) this.faceModel.calculateLipOpen(landmarks, this.lipsMat);
 
                 if (this.eyeLineLeftNurbs) updateFaceNurbsMesh(landmarks, this.eyeLineLeftNurbs, this.sceneSize.x, this.sceneSize.y, true);
@@ -397,9 +441,9 @@ export class MakeupEngine {
             if (arType === 'foundation' && this.foundationMat) {
                 this.foundationMesh.visible = true;
                 this.foundationMat.uniforms._MainColor.value = hexToVector4(colorCode);
-                if (colorMode == '5') this.foundationMat.uniforms._noise.value = 1;   // glossy + glitter
-                if (colorMode == '7') this.foundationMat.uniforms._noise.value = 0.7; // low shine
-                if (colorMode == '1') this.foundationMat.uniforms._noise.value = 0;   // matte
+                if (colorMode == '5') this.foundationMat.uniforms._noise.value = 1;
+                if (colorMode == '7') this.foundationMat.uniforms._noise.value = 0.7;
+                if (colorMode == '1') this.foundationMat.uniforms._noise.value = 0;
             }
             if (arType === 'blush' && this.blushMat) {
                 this.blushMesh.visible = true;
@@ -438,7 +482,7 @@ export class MakeupEngine {
                 this.mascaraMat.uniforms.color.value = hexToVector4(colorCode);
             }
         } catch (e) {
-            // swallow — a layer may not be loaded yet
+            // a layer may not be loaded yet
         }
     }
 
@@ -508,6 +552,80 @@ export class MakeupEngine {
                 (err) => reject(err),
             );
         });
+    }
+
+    /* ───────────────────────── face reshape (morph) ───────────────────────── */
+
+    _ensureMorphBuffers() {
+        if (this._morphReady) return;
+        const mesh = this.faceModel && this.faceModel.mesh;
+        const geo = mesh && mesh.geometry;
+        if (!geo || !geo.attributes.position) return;
+
+        // unmorphed fit position, consumed by the warp shader as `aBasePos`
+        const len = geo.attributes.position.array.length;
+        this._basePos = new Float32BufferAttribute(new Float32Array(len), 3);
+        geo.setAttribute('aBasePos', this._basePos);
+
+        this._morphDeltas = (geo.morphAttributes && geo.morphAttributes.position) || [];
+        this._morphDict = mesh.morphTargetDictionary || {};
+        this._morphInfluences = new Float32Array(this._morphDeltas.length);
+        this._morphReady = true;
+
+        // flush any morph() calls made before the model was ready
+        const pending = this._pendingMorph;
+        this._pendingMorph = {};
+        for (const name in pending) this.setMorph(name, pending[name]);
+    }
+
+    _applyMorph() {
+        if (!this._morphReady) return;
+        const geo = this.faceModel.mesh.geometry;
+        const pos = geo.attributes.position;
+        const arr = pos.array;
+
+        // capture the unmorphed landmark-fit (just written by updateWithLandmarks)
+        this._basePos.array.set(arr);
+        this._basePos.needsUpdate = true;
+
+        // add each active morph delta on top of the fit (shared geometry → all layers follow)
+        let any = false;
+        for (let k = 0; k < this._morphInfluences.length; k++) {
+            const infl = this._morphInfluences[k];
+            if (!infl) continue;
+            any = true;
+            const d = this._morphDeltas[k].array;
+            for (let j = 0; j < arr.length; j++) arr[j] += infl * d[j];
+        }
+        if (any) {
+            pos.needsUpdate = true;
+            geo.computeVertexNormals();
+        }
+    }
+
+    /** Set one reshape control (friendly name from morphs.js, or a raw glb target). */
+    setMorph(name, value) {
+        if (!this._morphReady) { this._pendingMorph[name] = value; return; }
+        const target = resolveMorphTarget(name);
+        const idx = this._morphDict[target];
+        if (idx == null) { console.warn(`OpenMakeupSDK: unknown morph "${name}"`); return; }
+        this._morphInfluences[idx] = value;
+    }
+
+    /** Apply a map of reshape controls, e.g. { noseSlim: 0.6, cheeks: 0.3 }. */
+    morph(map = {}) {
+        for (const name in map) this.setMorph(name, map[name]);
+    }
+
+    /** Reset all reshape controls to 0. */
+    resetMorph() {
+        if (this._morphInfluences) this._morphInfluences.fill(0);
+        this._pendingMorph = {};
+    }
+
+    /** Available morph target names baked into the model. */
+    getMorphTargets() {
+        return this._morphDict ? Object.keys(this._morphDict) : [];
     }
 
     /* ───────────────────────── lifecycle ───────────────────────── */

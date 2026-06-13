@@ -1,5 +1,6 @@
 import { MakeupEngine } from './core/MakeupEngine.js';
 import { CATEGORIES, resolveCategory, AI_SENTINEL } from './categories.js';
+import { MORPH_CONTROLS } from './morphs.js';
 
 // Used when a category's default color is `ai` but no aiColor provider is set,
 // or when AI resolution fails — keeps `apply()` from ever producing no color.
@@ -158,6 +159,37 @@ export class OpenMakeup {
   /** Hide every makeup layer. */
   clearAll() {
     this.engine.clearAll();
+  }
+
+  /* ───────────────────────── face reshape (morph) ───────────────────────── */
+
+  /**
+   * Reshape the face. Accepts friendly controls and/or raw glb target names:
+   *   mk.morph({ noseSlim: 0.6, cheeks: 0.3, jawWide: 0.4, browLift: 0.5 });
+   * Weights are typically 0..1 (negative or >1 exaggerate).
+   */
+  morph(map = {}) {
+    this.engine.morph(map);
+  }
+
+  /** Set a single reshape control. */
+  setMorph(name, value) {
+    this.engine.setMorph(name, value);
+  }
+
+  /** Reset all reshape controls to 0. */
+  resetMorph() {
+    this.engine.resetMorph();
+  }
+
+  /** Friendly reshape control names (see morphs.js for what each does). */
+  get morphControls() {
+    return Object.keys(MORPH_CONTROLS);
+  }
+
+  /** All morph target names baked into the model (friendly + raw). */
+  getMorphTargets() {
+    return this.engine.getMorphTargets();
   }
 
   start() { this.engine.start(); }
