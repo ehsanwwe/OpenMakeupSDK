@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenMakeupSDK — local test</title>
+  <!-- MediaPipe as global scripts (sets window.Camera / window.FaceMesh) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.js" crossorigin="anonymous"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; color:#222;
+           display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+    #left { flex: 0 0 auto; }
+    #stage { position: relative; width: 640px; height: 480px; max-width: 100%;
+             background:#111; overflow:hidden; border-radius:12px; }
+    #video { width:100%; height:100%; object-fit:cover; transform: scaleX(-1); }
+    #renderCanvas { transform: scaleX(-1); }
+    .controls { margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
+    button { padding:8px 12px; border-radius:8px; border:1px solid #ccc;
+             background:#fafafa; cursor:pointer; }
+    button:hover { background:#f0f0f0; }
+    #status { margin-top:10px; color:#666; font-size:14px; }
+
+    #right { flex: 1 1 300px; min-width: 280px; }
+    h3 { margin: 0 0 8px; font-size:15px; }
+    #morph-panel { display:flex; flex-direction:column; gap:10px; }
+    label.slider { display:grid; grid-template-columns: 1fr 160px 48px; align-items:center; gap:8px;
+                   font-size:13px; }
+    label.slider span i { color:#888; font-weight:400; }
+    label.slider input[type=range] { width:160px; }
+    label.slider output { text-align:right; font-variant-numeric: tabular-nums; color:#555; }
+    .sep { margin-top:6px; font-size:12px; color:#999; text-transform:uppercase; letter-spacing:.05em; }
+  </style>
+</head>
+<body>
+  <div id="left">
+    <h2>OpenMakeupSDK — local test</h2>
+    <div id="stage">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="renderCanvas"></canvas>
+    </div>
+    <div class="controls">
+      <button id="lipstick">Lipstick (glossy)</button>
+      <button id="eyeshadow">Eyeshadow #1 (glitter)</button>
+      <button id="eyeline">Eyeliner #1</button>
+      <button id="blush">Blush</button>
+      <button id="foundation">Foundation</button>
+      <button id="mascara">Mascara</button>
+      <button id="clear">Clear makeup</button>
+    </div>
+    <div id="status">Booting…</div>
+  </div>
+
+  <div id="right">
+    <h3>Face reshape (morph)</h3>
+    <div id="morph-panel"></div>
+    <div class="controls">
+      <button id="reset-morph">Reset shape</button>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="wireframe"> Wireframe</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="blur"> Blur layer</label>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
