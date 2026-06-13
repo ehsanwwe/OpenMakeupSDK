@@ -192,6 +192,16 @@ export class OpenMakeup {
     return this.engine.getMorphTargets();
   }
 
+  /** Debug: show/hide a wireframe of the morphed face mesh. */
+  setWireframe(on) {
+    this.engine.setWireframe(on);
+  }
+
+  /** Show/hide the blur/refraction layer (off by default). */
+  setBlur(on) {
+    this.engine.setBlur(on);
+  }
+
   start() { this.engine.start(); }
   stop() { this.engine.stop(); }
   dispose() { this.engine.dispose(); }

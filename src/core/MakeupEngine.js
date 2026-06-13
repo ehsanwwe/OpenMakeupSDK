@@ -139,12 +139,15 @@ export class MakeupEngine {
 
         // face reshape (morph) state
         this.faceVideoMesh = null;     // camera video projected onto the morphable face mesh
+        this.wireMesh = null;          // debug wireframe of the morphed mesh
         this._morphReady = false;
         this._morphDeltas = null;      // geometry.morphAttributes.position (deltas per target)
         this._morphDict = null;        // glb target name -> index
         this._morphInfluences = null;  // Float32Array, one weight per target
         this._basePos = null;          // unmorphed fit position attribute (for the warp shader)
         this._pendingMorph = {};       // morph() calls made before the model finished loading
+        this._morphModelIPD = null;    // eye distance in the original model space (scale ref)
+        this.morphGain = 1.0;          // global multiplier for morph strength (tunable)
     }
 
     /** Set up the scene, load the face model + materials, start tracking. */
@@ -291,11 +294,23 @@ export class MakeupEngine {
                 this._ensureMorphBuffers();
                 loadFaceWarpMat(this.assets, this.videoTexture).then((mat) => {
                     this.faceVideoMesh = new Mesh(mesh.geometry, mat);
-                    this.faceVideoMesh.renderOrder = -5; // above the background plane, below makeup
+                    this.faceVideoMesh.renderOrder = 1; // above the background plane + blur, below makeup colors
                     this.faceVideoMesh.position.setZ(0.5);
                     this.faceVideoMesh.frustumCulled = false;
                     this.faceObject3D.add(this.faceVideoMesh);
                 });
+
+                // debug wireframe of the (CPU-morphed) shared geometry — toggle with setWireframe()
+                const wireMat = new MeshBasicMaterial({
+                    color: 0x00ff88, wireframe: true,
+                    transparent: true, opacity: 0.9,
+                    depthTest: false, depthWrite: false,
+                });
+                this.wireMesh = new Mesh(mesh.geometry, wireMat);
+                this.wireMesh.renderOrder = 999;
+                this.wireMesh.frustumCulled = false;
+                this.wireMesh.visible = false;
+                this.faceObject3D.add(this.wireMesh);
 
                 const refractUniforms = {
                     tScene: { value: this.videoTexture },
@@ -309,6 +324,7 @@ export class MakeupEngine {
                     this.blureMesh = new Mesh(mesh.geometry, material);
                     this.blureMesh.renderOrder = 0;
                     this.blureMesh.position.setZ(0);
+                    this.blureMesh.visible = false; // off by default — it was covering the warp/face
                     this.faceObject3D.add(this.blureMesh);
                 });
 
@@ -572,6 +588,14 @@ export class MakeupEngine {
         this._morphInfluences = new Float32Array(this._morphDeltas.length);
         this._morphReady = true;
 
+        console.info(
+            `OpenMakeupSDK: morph targets loaded = ${this._morphDeltas.length}`,
+            Object.keys(this._morphDict),
+        );
+        if (this._morphDeltas.length === 0) {
+            console.warn('OpenMakeupSDK: no morph attributes on the geometry — face.glb may have been exported without morph targets, or the loader dropped them.');
+        }
+
         // flush any morph() calls made before the model was ready
         const pending = this._pendingMorph;
         this._pendingMorph = {};
@@ -588,19 +612,46 @@ export class MakeupEngine {
         this._basePos.array.set(arr);
         this._basePos.needsUpdate = true;
 
-        // add each active morph delta on top of the fit (shared geometry → all layers follow)
+        // The morph deltas live in the original model space (Z-up, model scale).
+        // The live mesh is the landmark fit (Y-up, pixel scale). Convert:
+        //   - scale by eye-distance ratio (model -> live)
+        //   - swap Y/Z so model "height" (Z) maps to live "up" (Y)
+        const k = this._morphScale() * this.morphGain;
+
         let any = false;
-        for (let k = 0; k < this._morphInfluences.length; k++) {
-            const infl = this._morphInfluences[k];
+        for (let m = 0; m < this._morphInfluences.length; m++) {
+            const infl = this._morphInfluences[m];
             if (!infl) continue;
             any = true;
-            const d = this._morphDeltas[k].array;
-            for (let j = 0; j < arr.length; j++) arr[j] += infl * d[j];
+            const d = this._morphDeltas[m].array;
+            const w = infl * k;
+            for (let i = 0; i < arr.length; i += 3) {
+                arr[i]     += w * d[i];       // X  (width)        <- model X
+                arr[i + 1] += w * d[i + 2];   // Y  (live up)      <- model Z (height)
+                arr[i + 2] += w * d[i + 1];   // Z  (live depth)   <- model Y (depth)
+            }
         }
         if (any) {
             pos.needsUpdate = true;
             geo.computeVertexNormals();
         }
+    }
+
+    /** Scale factor mapping model-space deltas into the live landmark-fit space. */
+    _morphScale() {
+        const op = this.faceModel && this.faceModel.originalPositions;
+        if (!op) return 1;
+        if (this._morphModelIPD == null) this._morphModelIPD = this._ipd(op, 33, 263);
+        if (!this._morphModelIPD) return 1;
+        const liveIPD = this._ipd(this._basePos.array, 33, 263);
+        return liveIPD / this._morphModelIPD;
+    }
+
+    _ipd(a, i, j) {
+        const dx = a[i * 3] - a[j * 3];
+        const dy = a[i * 3 + 1] - a[j * 3 + 1];
+        const dz = a[i * 3 + 2] - a[j * 3 + 2];
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
     /** Set one reshape control (friendly name from morphs.js, or a raw glb target). */
@@ -626,6 +677,18 @@ export class MakeupEngine {
     /** Available morph target names baked into the model. */
     getMorphTargets() {
         return this._morphDict ? Object.keys(this._morphDict) : [];
+    }
+
+    /* ───────────────────────── debug ───────────────────────── */
+
+    /** Show/hide a wireframe of the morphed face mesh (to verify morph deformation). */
+    setWireframe(on) {
+        if (this.wireMesh) this.wireMesh.visible = !!on;
+    }
+
+    /** Show/hide the blur/refraction layer (off by default — it covers the warp). */
+    setBlur(on) {
+        if (this.blureMesh) this.blureMesh.visible = !!on;
     }
 
     /* ───────────────────────── lifecycle ───────────────────────── */
