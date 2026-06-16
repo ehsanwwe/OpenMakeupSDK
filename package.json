@@ -5,8 +5,13 @@
   "type": "module",
   "main": "src/index.js",
   "module": "src/index.js",
+  "types": "./src/index.d.ts",
   "exports": {
-    ".": "./src/index.js",
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    },
     "./assets/*": "./assets/*"
   },
   "files": [
@@ -18,7 +23,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "dev": "vite examples/basic",
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
     "build": "echo \"(build step to be added)\" && exit 0"
   },
   "keywords": [
@@ -50,6 +56,8 @@
     "url": "https://github.com/ehsanwwe/OpenMakeupSDK.git"
   },
   "devDependencies": {
+    "three": "^0.184.0",
+    "typescript": "^5.9.3",
     "vite": "^8.0.16"
   }
 }
