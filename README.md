@@ -138,7 +138,7 @@ mk.resetMorph(); // reset the face shape
 - [x] Public `OpenMakeup` API with smart defaults
 - [x] Face reshape via blend shapes
 - [x] Interactive playground + hosted live demo
-- [ ] TypeScript types
+- [x] TypeScript types
 - [ ] npm release `v1.0`
 
 ---
