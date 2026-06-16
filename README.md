@@ -14,6 +14,8 @@ The open alternative to closed commercial AR beauty SDKs — runs **entirely in 
 [![GitHub issues](https://img.shields.io/github/issues/ehsanwwe/OpenMakeupSDK)](https://github.com/ehsanwwe/OpenMakeupSDK/issues)
 [![GitHub stars](https://img.shields.io/github/stars/ehsanwwe/OpenMakeupSDK?style=social)](https://github.com/ehsanwwe/OpenMakeupSDK/stargazers)
 
+[![Live Demo](https://img.shields.io/badge/%E2%96%B6%20live%20demo-try%20it%20now-e0567a?style=for-the-badge)](https://ehsanwwe.github.io/open-makeup-sdk/)
+
 [![Three.js](https://img.shields.io/badge/Three.js-000000?logo=three.js&logoColor=white)](https://threejs.org)
 [![WebGL](https://img.shields.io/badge/WebGL-2.0-990000)](https://www.khronos.org/webgl/)
 [![MediaPipe](https://img.shields.io/badge/MediaPipe-FaceMesh-00897B)](https://developers.google.com/mediapipe)
@@ -25,9 +27,15 @@ The open alternative to closed commercial AR beauty SDKs — runs **entirely in 
 
 ---
 
-<!-- 👉 Add a demo GIF or screenshot here -->
+<!-- 👉 Tip: drop a short demo GIF here for an even stronger first impression -->
 <div align="center">
-<em>📹 Live demo coming soon — point your webcam, pick a look, reshape your face in real time.</em>
+
+### ▶️ [**Try the live demo →**](https://ehsanwwe.github.io/open-makeup-sdk/)
+
+<em>Point your webcam, pick a look, and reshape your face in real time — no install, no upload.</em>
+<br/>
+<sub>Runs fully in the browser · needs camera access · best on Chrome (desktop / Android)</sub>
+
 </div>
 
 ---
@@ -129,7 +137,7 @@ mk.resetMorph(); // reset the face shape
 - [x] Real-time makeup engine (6 categories, finishes, 73 patterns)
 - [x] Public `OpenMakeup` API with smart defaults
 - [x] Face reshape via blend shapes
-- [ ] Interactive playground + hosted live demo
+- [x] Interactive playground + hosted live demo
 - [ ] TypeScript types
 - [ ] npm release `v1.0`
 
