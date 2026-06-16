@@ -9,9 +9,9 @@ The open alternative to closed commercial AR beauty SDKs — runs **entirely in 
 <br/>
 
 [![npm version](https://img.shields.io/npm/v/open-makeup-sdk?color=cb3837&logo=npm&label=npm)](https://www.npmjs.com/package/open-makeup-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/open-makeup-sdk?color=cb3837&logo=npm)](https://www.npmjs.com/package/open-makeup-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ehsanwwe/OpenMakeupSDK/pulls)
-[![GitHub issues](https://img.shields.io/github/issues/ehsanwwe/OpenMakeupSDK)](https://github.com/ehsanwwe/OpenMakeupSDK/issues)
 [![GitHub stars](https://img.shields.io/github/stars/ehsanwwe/OpenMakeupSDK?style=social)](https://github.com/ehsanwwe/OpenMakeupSDK/stargazers)
 
 [![Live Demo](https://img.shields.io/badge/%E2%96%B6%20live%20demo-try%20it%20now-e0567a?style=for-the-badge)](https://ehsanwwe.github.io/open-makeup-sdk/)
@@ -20,8 +20,7 @@ The open alternative to closed commercial AR beauty SDKs — runs **entirely in 
 [![WebGL](https://img.shields.io/badge/WebGL-2.0-990000)](https://www.khronos.org/webgl/)
 [![MediaPipe](https://img.shields.io/badge/MediaPipe-FaceMesh-00897B)](https://developers.google.com/mediapipe)
 [![GLSL](https://img.shields.io/badge/Shaders-GLSL-5586A4)](https://www.khronos.org/opengl/wiki/Core_Language_(GLSL))
-[![Runs in](https://img.shields.io/badge/runs%20in-the%20browser-orange)]()
-[![No backend](https://img.shields.io/badge/backend-none-success)]()
+[![TypeScript](https://img.shields.io/badge/types-included-3178c6?logo=typescript&logoColor=white)]()
 
 </div>
 
@@ -46,74 +45,124 @@ Commercial AR beauty SDKs (YouCam / Perfect Corp, Banuba, ModiFace…) are power
 
 It's a real-time AR makeup mirror **and** a beauty face-reshape engine, built on **MediaPipe face tracking + custom WebGL/GLSL shaders**, running fully client-side.
 
-> Built over years of production AR work — and battle-tested before most of today's web makeup SDKs existed.
-
 ---
 
 ## 🚀 Features
 
 ### 💋 Virtual makeup
-- **Real-time face tracking** — 468-point MediaPipe FaceMesh, runs live on a webcam.
+- **Real-time face tracking** — 468-point MediaPipe FaceMesh, live on a webcam.
 - **6 makeup categories** — `foundation`, `blush`, `lipstick`, `eyeliner`, `mascara`, `eyeshadow`.
 - **73 ready-to-use pattern textures** out of the box.
-- **Material finishes** — `matte`, `shimmer`, `glossy`, `glitter` (where the category supports it).
-- **Custom GLSL shaders** for believable blending, glossiness, glitter and skin response — not flat overlays.
-- **Smart defaults** — every parameter has one. No color on eyeliner? It's black. No color on lipstick? Plug in your own **AI color** provider.
-- **Pluggable colors & patterns** — any hex color, pattern by simple number or by id.
+- **Material finishes** — `matte`, `shimmer`, `glossy`, `glitter` (where supported).
+- **Custom GLSL shaders** for believable blending, gloss, and glitter — not flat overlays.
+- **Smart defaults** — every parameter has one; plug in your own AI color provider for lipstick.
 
 ### 🧬 Face reshape (morph / blend shapes)
-Project the live camera image onto a morphable 3D face mesh, so the user's **actual face** reshapes in real time:
-
-| Control | What it does |
-|---|---|
-| `browLift` | lift the outer brow corner |
-| `lipPlump` / `lipPlump2` | plump the lips (filler look) |
-| `noseSlim` | narrow the nose |
-| `noseBridge` | reduce the nose-bridge prominence between the eyes |
-| `cheeks` | fuller cheeks |
-| `jawAngle` | define the jaw angle |
-| `jawWide` | move the jaw angle away from the ear |
-
-…all driven by blend shapes baked into the included 3D rig — **and the Blender source is shipped**, so you can author your own.
+Project the live camera image onto a morphable 3D mesh so the user's **actual face** reshapes in real time — brow, lips, nose, cheeks, and jaw. The editable Blender rig is included.
 
 ### 🧰 Developer experience
 - **Drop-in, framework-agnostic** — plain ES modules, works with any stack.
 - **Zero backend** — everything runs client-side.
-- **Config-driven assets** — move the `assets/` folder anywhere; one base URL updates every path.
-- **No vendor lock-in** — MIT, yours to ship.
+- **TypeScript types included.**
+- **Config-driven assets** — one base URL points every shader, model, and pattern.
 
 ---
 
-## ⚡ Quick start
+## 📦 Installation
 
 ```bash
 npm install open-makeup-sdk three @mediapipe/face_mesh @mediapipe/camera_utils
 ```
 
-```js
-import { OpenMakeup } from 'open-makeup-sdk';
+`three` and the two `@mediapipe/*` packages are peer dependencies — install them alongside the SDK.
 
-const mk = new OpenMakeup({
-  video:        document.querySelector('#camera'),
-  renderCanvas: document.querySelector('#output'),
-  assetsBaseUrl: '/assets',
-});
+---
 
-await mk.init();
+## ⚡ Quick start
 
-// makeup
-mk.apply('lipstick',  { color: '#b4002e', finish: 'glossy' });
-mk.apply('eyeshadow', { color: '#7a3b9d', pattern: 3, finish: 'glitter' });
-mk.apply('eyeliner',  { pattern: 1 });          // defaults to black
+You need three things: a `<video>` (webcam), a `<canvas>` (output), and the assets served somewhere. The easiest setup loads MediaPipe and the assets straight from a CDN — no extra build config.
 
-// face reshape
-mk.morph({ noseSlim: 0.6, cheeks: 0.3, jawWide: 0.4, browLift: 0.5 });
+```html
+<!-- MediaPipe runtime: sets window.FaceMesh / window.Camera -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.js"></script>
 
-mk.clearAll();   // remove makeup
-mk.resetMorph(); // reset the face shape
+<video id="cam" playsinline></video>
+<canvas id="out"></canvas>
+
+<script type="module">
+  import { OpenMakeup } from 'open-makeup-sdk';
+
+  const mk = new OpenMakeup({
+    video:        document.querySelector('#cam'),
+    renderCanvas: document.querySelector('#out'),
+    // Serve the assets yourself, or use the published CDN copy:
+    assetsBaseUrl:    'https://cdn.jsdelivr.net/npm/open-makeup-sdk/assets',
+    mediapipeBaseUrl: 'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619',
+  });
+
+  await mk.init();                                           // boots tracking + camera
+
+  await mk.apply('lipstick',  { color: '#b4002e', finish: 'glossy' });
+  await mk.apply('eyeshadow', { color: '#7a3b9d', pattern: 3, finish: 'glitter' });
+  await mk.apply('eyeliner',  { pattern: 1 });               // defaults to black
+
+  mk.morph({ noseSlim: 0.6, cheeks: 0.3, jawWide: 0.4, browLift: 0.5 });
+</script>
 ```
 
-> MediaPipe's runtime can be loaded from npm or a CDN `<script>` tag — your choice.
+> **Hosting the assets yourself?** Copy `node_modules/open-makeup-sdk/assets` into your public folder and set `assetsBaseUrl` to its URL (e.g. `'/assets'`).
+
+---
+
+## 🎛️ API reference
+
+```js
+const mk = new OpenMakeup(options);
+```
+
+| Method | Description |
+|---|---|
+| `await mk.init(onReady?)` | Boot the engine, load assets, start the camera. |
+| `await mk.apply(category, opts)` | Apply/update a layer: `{ color, finish, pattern }`. |
+| `mk.clear(category)` | Remove one makeup layer. |
+| `mk.clearAll()` | Remove all makeup. |
+| `mk.morph(map)` | Reshape: `{ noseSlim: 0.6, cheeks: 0.3, ... }`. |
+| `mk.setMorph(name, value)` | Set a single reshape control. |
+| `mk.resetMorph()` | Reset the face shape. |
+| `mk.getPatterns(category)` | List patterns for a category. |
+| `mk.getMorphTargets()` | List the model's reshape targets. |
+| `mk.setWireframe(on)` | Toggle the debug face mesh. |
+| `mk.start()` / `mk.stop()` / `mk.dispose()` | Control / release the engine. |
+
+**Constructor options:** `video`, `renderCanvas`, `assetsBaseUrl`, `mediapipeBaseUrl`, `defaults`, `aiColor`.
+
+---
+
+## 🎨 Categories & finishes
+
+| Category | Color | Finish | Patterns |
+|---|:---:|:---:|:---:|
+| `foundation` | ✅ | matte · shimmer · glossy · glitter | ✅ |
+| `blush` | ✅ | matte · shimmer · glossy · glitter | ✅ |
+| `lipstick` | ✅ | matte · shimmer · glossy · glitter | ✅ |
+| `eyeshadow` | ✅ | matte · shimmer · glossy · glitter | ✅ |
+| `eyeliner` | ✅ | — | ✅ |
+| `mascara` | ✅ | — | ✅ |
+
+## 🧬 Reshape controls
+
+| Control | Effect |
+|---|---|
+| `browLift` | Lift the outer brow corner |
+| `lipPlump` / `lipPlump2` | Plump the lips |
+| `noseSlim` | Narrow the nose |
+| `noseBridge` | Reduce the nose-bridge prominence between the eyes |
+| `cheeks` | Fuller cheeks |
+| `jawAngle` | Define the jaw angle |
+| `jawWide` | Widen the jaw angle away from the ear |
+
+Weights are typically `0..1`; negative values and values above 1 exaggerate the effect.
 
 ---
 
@@ -139,7 +188,9 @@ mk.resetMorph(); // reset the face shape
 - [x] Face reshape via blend shapes
 - [x] Interactive playground + hosted live demo
 - [x] TypeScript types
-- [ ] npm release `v1.0`
+- [x] **Published to npm** 🎉
+
+> v1 is live. Next up: more patterns, demo recipes, and community-contributed looks.
 
 ---
 
